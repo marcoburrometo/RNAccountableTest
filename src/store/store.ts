@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {persistReducer, persistStore} from 'redux-persist';
-import {coinListApi} from './api/coinList';
+import {coinListApi} from './api/coinListApi';
 
 const persistConfig = {
   key: 'root',

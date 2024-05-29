@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import {CoinListResult, useGetCoinListQuery} from '../store/api/coinList';
+import {CoinListResult, useGetCoinListQuery} from '../store/api/coinListApi';
 import CoinListItem from './CoinListItem';
 
 function CoinList() {
@@ -20,6 +20,8 @@ function CoinList() {
       refetchOnMountOrArgChange: true,
     },
   );
+
+  console.log('.....', isLoading, isFetching, error, page);
 
   useEffect(() => {
     if (data?.length) {

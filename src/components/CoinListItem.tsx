@@ -1,24 +1,38 @@
-import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import React, {useCallback, useMemo} from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {LineChart} from 'react-native-svg-charts';
+import {RootStackParamList} from '../../App';
 import colors from '../consts/Colors';
-import {CoinListResult} from '../store/api/coinList';
+import {CoinListResult} from '../store/api/coinListApi';
 import {priceChangeColor} from '../utils/price';
 
 type Props = {
   coin: CoinListResult;
 };
 
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'CoinList'>;
+
 const CoinListItem: React.FC<Props> = ({coin}) => {
-  const priceChange24hColor = priceChangeColor(
-    coin.price_change_percentage_24h_in_currency,
-  );
-  const priceChange7dColor = priceChangeColor(
-    coin.price_change_percentage_7d_in_currency,
+  const {navigate} = useNavigation<NavigationProp>();
+
+  const priceChange24hColor = useMemo(
+    () => priceChangeColor(coin.price_change_percentage_24h_in_currency),
+    [coin.price_change_percentage_24h_in_currency],
   );
 
+  const priceChange7dColor = useMemo(
+    () => priceChangeColor(coin.price_change_percentage_7d_in_currency),
+    [coin.price_change_percentage_7d_in_currency],
+  );
+
+  const navigateToDetails = useCallback(() => {
+    navigate('CoinDetails', {coin});
+  }, [navigate, coin]);
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={navigateToDetails}>
       <Image source={{uri: coin.image}} style={styles.image} />
       <View style={styles.infoContainer}>
         <Text style={styles.name}>
@@ -44,7 +58,7 @@ const CoinListItem: React.FC<Props> = ({coin}) => {
         svg={{stroke: priceChange7dColor}}
         contentInset={{top: 2, bottom: 2}}
       />
-    </View>
+    </TouchableOpacity>
   );
 };
 
