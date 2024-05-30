@@ -3,9 +3,11 @@ import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import colors from '../consts/Colors';
 import {useGetCoinDetailsQuery} from '../store/api/coinDetailsApi';
-import {formatPrice, priceChangeColor} from '../utils/price';
+import {formatNumber, priceChangeColor} from '../utils/price';
 import CoinChart from './CoinChart';
 import CoinFavoriteStar from './CoinFavoriteStar';
+import DetailsRow from './DetailsRow';
+import FetchError from './FetchError';
 
 type Props = {
   coinId: string;
@@ -21,8 +23,7 @@ const CoinDetails: React.FC<Props> = ({coinId}) => {
 
   if (!data) {
     if (error) {
-      console.error(error);
-      return <Text>Error fetching data</Text>;
+      return <FetchError refetch={refetch} />;
     }
 
     // TODO: Nice skeleton loader here :)
@@ -35,9 +36,13 @@ const CoinDetails: React.FC<Props> = ({coinId}) => {
       refreshControl={
         <RefreshControl onRefresh={refetch} refreshing={isFetching} />
       }>
-      {error && <Text>Error fetching data. Data is not in sync.</Text>}
+      {error && (
+        <Text>Error fetching data. Data is not in sync. Pull to retry</Text>
+      )}
       <View style={styles.header}>
-        <Text style={styles.headerText}>{`${data.name} (${data.symbol})`}</Text>
+        <Text style={styles.headerText}>{`${
+          data.name
+        } (${data.symbol.toUpperCase()})`}</Text>
         <CoinFavoriteStar coinId={coinId} size={50} />
       </View>
       <Text style={styles.date}>{`Last Updated: ${new Date(
@@ -54,24 +59,58 @@ const CoinDetails: React.FC<Props> = ({coinId}) => {
         onChange={value => setVsCurrency(value.value)}
         labelField="label"
         valueField="value"
+        search
       />
-      <Text
-        style={[
-          styles.price,
-          {color: priceChangeColor(data.market_data.current_price[vsCurrency])},
-        ]}>{`Current Price: ${formatPrice(
-        data.market_data.current_price[vsCurrency],
-        vsCurrency,
-      )}`}</Text>
-      <Text style={styles.field}>{`Market Cap: ${formatPrice(
-        data.market_data.market_cap[vsCurrency],
-        vsCurrency,
-      )}`}</Text>
-      <Text style={styles.field}>{`Total Volume: ${formatPrice(
-        data.market_data.total_volume[vsCurrency],
-        vsCurrency,
-      )}`}</Text>
-      <CoinChart coinId={coinId} vsCurrency={vsCurrency} />
+
+      <DetailsRow
+        color={priceChangeColor(data.market_data.price_change_percentage_24h)}
+        title="Current Price"
+        value={formatNumber(
+          data.market_data.current_price[vsCurrency],
+          vsCurrency,
+        )}
+      />
+      <DetailsRow
+        color={priceChangeColor(data.market_data.price_change_percentage_24h)}
+        title="Price Change (24h)"
+        value={`${formatNumber(
+          data.market_data.price_change_percentage_24h,
+          '%',
+        )}`}
+      />
+      <DetailsRow
+        title="Market Cap"
+        value={formatNumber(
+          data.market_data.market_cap[vsCurrency],
+          vsCurrency,
+          true,
+        )}
+      />
+      <DetailsRow
+        title="Total Volume"
+        value={formatNumber(
+          data.market_data.total_volume[vsCurrency],
+          vsCurrency,
+          true,
+        )}
+      />
+      <DetailsRow
+        title="Circulating Supply"
+        value={formatNumber(data.market_data.circulating_supply, '', true)}
+      />
+      <DetailsRow
+        title="Total Supply"
+        value={formatNumber(data.market_data.total_supply, '', true)}
+      />
+      <DetailsRow
+        title="All Time High"
+        value={formatNumber(data.market_data.ath[vsCurrency], vsCurrency)}
+      />
+      <DetailsRow
+        title="All Time Low"
+        value={formatNumber(data.market_data.atl[vsCurrency], vsCurrency)}
+      />
+      <CoinChart coinId={coinId} vsCurrency={vsCurrency} height={200} />
     </ScrollView>
   );
 };

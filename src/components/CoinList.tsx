@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {CoinListResult, useGetCoinListQuery} from '../store/api/coinListApi';
 import CoinListItem from './CoinListItem';
+import FetchError from './FetchError';
 
 function CoinList() {
   const [page, setPage] = useState(1);
@@ -39,7 +40,7 @@ function CoinList() {
 
   // If there is an error and there is no data, otherwise we stay positive :)
   if (error && !listItems?.length) {
-    return <Text>Error! :(</Text>;
+    return <FetchError refetch={refetch} />;
   }
 
   return (

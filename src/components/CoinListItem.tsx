@@ -6,7 +6,7 @@ import {LineChart} from 'react-native-svg-charts';
 import {RootStackParamList} from '../../App';
 import colors from '../consts/Colors';
 import {CoinListResult} from '../store/api/coinListApi';
-import {formatPrice, priceChangeColor} from '../utils/price';
+import {formatNumber, priceChangeColor} from '../utils/price';
 import CoinFavoriteStar from './CoinFavoriteStar';
 
 type Props = {
@@ -44,10 +44,11 @@ const CoinListItem: React.FC<Props> = ({coin}) => {
         </Text>
         <Text style={[styles.priceChange, {color: priceChange24hColor}]}>
           24h Change:{' '}
-          {formatPrice(coin.price_change_percentage_24h_in_currency)}%
+          {formatNumber(coin.price_change_percentage_24h_in_currency)}%
         </Text>
         <Text style={[styles.priceChange, {color: priceChange7dColor}]}>
-          7d Change: {formatPrice(coin.price_change_percentage_7d_in_currency)}%
+          7d Change: {formatNumber(coin.price_change_percentage_7d_in_currency)}
+          %
         </Text>
         <Text style={styles.rank}>
           Market Cap Rank: #{coin.market_cap_rank}

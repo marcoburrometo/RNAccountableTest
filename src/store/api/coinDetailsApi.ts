@@ -84,6 +84,9 @@ export interface CoinData {
     market_cap_change_percentage_24h: number;
     price_change_in_currency: {[key: string]: number};
     market_cap_change_in_currency: {[key: string]: number};
+    total_supply: number;
+    max_supply: number;
+    circulating_supply: number;
   };
   community_data: {
     facebook_likes: number | null;
@@ -121,6 +124,12 @@ export interface CoinChartData {
   total_volumes: [number, number][];
 }
 
+interface CoinChartDataParams {
+  id: string;
+  vsCurrency: string;
+  days?: number;
+}
+
 export const coinDetailsApi = createApi({
   reducerPath: 'coinDetailsApi',
   baseQuery: fetchBaseQuery({
@@ -132,15 +141,12 @@ export const coinDetailsApi = createApi({
         url: 'coins/' + id,
       }),
     }),
-    getCoinChart: builder.query<
-      CoinChartData,
-      {id: string; vsCurrency: string}
-    >({
-      query: ({id, vsCurrency}) => ({
+    getCoinChart: builder.query<CoinChartData, CoinChartDataParams>({
+      query: ({id, vsCurrency, days = 30}) => ({
         url: `coins/${id}/market_chart`,
         params: {
           vs_currency: vsCurrency,
-          days: 30,
+          days,
         },
       }),
     }),
