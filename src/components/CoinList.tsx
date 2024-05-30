@@ -21,8 +21,6 @@ function CoinList() {
     },
   );
 
-  console.log('.....', isLoading, isFetching, error, page);
-
   useEffect(() => {
     if (data?.length) {
       // Append new data to existing data if page is greater than 1, otherwise set new data

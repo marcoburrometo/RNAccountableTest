@@ -1,16 +1,18 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {persistReducer, persistStore} from 'redux-persist';
+import {coinDetailsApi} from './api/coinDetailsApi';
 import {coinListApi} from './api/coinListApi';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['coinListApi'],
+  whitelist: ['coinListApi', 'coinDetailsApi'],
 };
 
 const rootReducer = combineReducers({
   [coinListApi.reducerPath]: coinListApi.reducer,
+  [coinDetailsApi.reducerPath]: coinDetailsApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -20,7 +22,9 @@ export const store = configureStore({
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(coinListApi.middleware),
+    })
+      .concat(coinListApi.middleware)
+      .concat(coinDetailsApi.middleware),
 });
 
 export const persistor = persistStore(store);
