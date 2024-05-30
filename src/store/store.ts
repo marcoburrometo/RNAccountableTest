@@ -3,16 +3,18 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {persistReducer, persistStore} from 'redux-persist';
 import {coinDetailsApi} from './api/coinDetailsApi';
 import {coinListApi} from './api/coinListApi';
+import {userDataSlice} from './slices/userData';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['coinListApi', 'coinDetailsApi'],
+  whitelist: ['coinListApi', 'coinDetailsApi', 'userDataSlice'],
 };
 
 const rootReducer = combineReducers({
   [coinListApi.reducerPath]: coinListApi.reducer,
   [coinDetailsApi.reducerPath]: coinDetailsApi.reducer,
+  [userDataSlice.reducerPath]: userDataSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

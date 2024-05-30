@@ -1,10 +1,11 @@
 import React, {useMemo, useState} from 'react';
-import {RefreshControl, ScrollView, StyleSheet, Text} from 'react-native';
+import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import colors from '../consts/Colors';
 import {useGetCoinDetailsQuery} from '../store/api/coinDetailsApi';
 import {formatPrice, priceChangeColor} from '../utils/price';
 import CoinChart from './CoinChart';
+import CoinFavoriteStar from './CoinFavoriteStar';
 
 type Props = {
   coinId: string;
@@ -35,7 +36,10 @@ const CoinDetails: React.FC<Props> = ({coinId}) => {
         <RefreshControl onRefresh={refetch} refreshing={isFetching} />
       }>
       {error && <Text>Error fetching data. Data is not in sync.</Text>}
-      <Text style={styles.header}>{`${data.name} (${data.symbol})`}</Text>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>{`${data.name} (${data.symbol})`}</Text>
+        <CoinFavoriteStar coinId={coinId} size={50} />
+      </View>
       <Text style={styles.date}>{`Last Updated: ${new Date(
         data.last_updated,
       ).toLocaleString()}`}</Text>
@@ -75,7 +79,7 @@ const CoinDetails: React.FC<Props> = ({coinId}) => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: colors.grey,
+    backgroundColor: colors.white,
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
@@ -84,6 +88,15 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderBottomColor: colors.primary,
+    borderBottomWidth: 1,
+    flex: 1,
+    marginBottom: 10,
+  },
+  headerText: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
@@ -112,6 +125,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 10,
     marginBottom: 10,
+    borderRadius: 5,
   },
 });
 

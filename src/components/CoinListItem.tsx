@@ -7,6 +7,7 @@ import {RootStackParamList} from '../../App';
 import colors from '../consts/Colors';
 import {CoinListResult} from '../store/api/coinListApi';
 import {formatPrice, priceChangeColor} from '../utils/price';
+import CoinFavoriteStar from './CoinFavoriteStar';
 
 type Props = {
   coin: CoinListResult;
@@ -58,6 +59,7 @@ const CoinListItem: React.FC<Props> = ({coin}) => {
         svg={{stroke: priceChange7dColor}}
         contentInset={{top: 2, bottom: 2}}
       />
+      <CoinFavoriteStar coinId={coin.id} />
     </TouchableOpacity>
   );
 };
