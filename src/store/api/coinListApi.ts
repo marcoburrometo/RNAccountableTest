@@ -46,6 +46,16 @@ export interface CoinListResult {
   };
 }
 
+export interface CoinSearchResult {
+  id: string;
+  name: string;
+  api_symbol: string;
+  symbol: string;
+  market_cap_rank: number;
+  thumb: string;
+  large: string;
+}
+
 export const coinListApi = createApi({
   reducerPath: 'coinListApi',
   baseQuery: fetchBaseQuery({
@@ -66,7 +76,16 @@ export const coinListApi = createApi({
         },
       }),
     }),
+    searchCoin: builder.query<{coins: CoinSearchResult[]}, string>({
+      query: symbol => ({
+        url: 'search',
+        params: {
+          x_cg_demo_api_key: COINGEKO_API_KEY,
+          query: symbol,
+        },
+      }),
+    }),
   }),
 });
 
-export const {useGetCoinListQuery} = coinListApi;
+export const {useGetCoinListQuery, useSearchCoinQuery} = coinListApi;
