@@ -11,6 +11,7 @@
 - Redux-toolkit for state management (persisted) [https://redux-toolkit.js.org/](https://redux-toolkit.js.org/)
 - react-native-svg-charts [https://github.com/JesperLekland/react-native-svg-charts](https://github.com/JesperLekland/react-native-svg-charts)
 - Lottie for some fancy animations 🧙‍♂️ [https://github.com/lottie-react-native/lottie-react-native](https://github.com/lottie-react-native/lottie-react-native)
+- react-native-dotenv for environment variables (I pushed the .env file for demo porposes)
 
 # Run the project
 
