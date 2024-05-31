@@ -1,8 +1,20 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Mobile Tech challenge
 
-# Getting Started
+[https://accountable.notion.site/Mobile-technical-challenge-d05e18ff22f549b6a8390b08cc2187b4](https://accountable.notion.site/Mobile-technical-challenge-d05e18ff22f549b6a8390b08cc2187b4)
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+# What is included
+
+- Plain react-native
+- TypeScript
+- Jest
+- React Navigation (with native-stack) [https://reactnavigation.org/](https://reactnavigation.org/)
+- Redux-toolkit for state management (persisted) [https://redux-toolkit.js.org/](https://redux-toolkit.js.org/)
+- react-native-svg-charts [https://github.com/JesperLekland/react-native-svg-charts](https://github.com/JesperLekland/react-native-svg-charts)
+- Lottie for some fancy animations 🧙‍♂️ [https://github.com/lottie-react-native/lottie-react-native](https://github.com/lottie-react-native/lottie-react-native)
+
+# Run the project
+
+> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
 ## Step 1: Start the Metro Server
 
@@ -46,34 +58,23 @@ If everything is set up _correctly_, you should see your new app running in your
 
 This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-## Step 3: Modifying your App
+#### Test
 
-Now that you have successfully run the app, let's modify it.
+```
+npm run test
+```
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+or
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+```
+yarn test
+```
 
-## Congratulations! :tada:
+### TODOs
 
-You've successfully run and modified your React Native App. :partying_face:
+- Add more unit tests
+- Add e2e tests
+- Fancier error handling
+- CI
 
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+##### Have fun. 🧑‍🚀🚀

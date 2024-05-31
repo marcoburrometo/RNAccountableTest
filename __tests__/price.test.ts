@@ -42,13 +42,13 @@ describe('humanizeNumber', () => {
 
 describe('formatNumber', () => {
   it('should return the formatted price with currency symbol', () => {
-    expect(formatNumber(100)).toBe('$100.00');
-    expect(formatNumber(100, '€')).toBe('€100.00');
+    expect(formatNumber(100)).toBe('100.00 $');
+    expect(formatNumber(100, '€')).toBe('100.00 €');
   });
 
   it('should return the formatted price with currency symbol and humanized number', () => {
-    expect(formatNumber(1_000_000_000, '$', true)).toBe('$1.00B');
-    expect(formatNumber(1_000_000, '€', true)).toBe('€1.00M');
+    expect(formatNumber(1_000_000_000, '$', true)).toBe('1.00B $');
+    expect(formatNumber(1_000_000, '€', true)).toBe('1.00M €');
   });
 
   it('should return "N/A" if the price is falsy', () => {
